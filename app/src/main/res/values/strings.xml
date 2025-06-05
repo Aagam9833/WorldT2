@@ -10,4 +10,5 @@
     <string name="batting">(Batting)</string>
     <string name="bowling">(Bowling)</string>
     <string name="match_over">Match Over</string>
+    <string name="logs">Logs</string>
 </resources>
