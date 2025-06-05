@@ -14,6 +14,7 @@ retrofit = "3.0.0"
 glide = "4.16.0"
 retrofitInterceptor = "5.0.0-alpha.14"
 lifecycle = "2.7.0"
+fragment-ktx = "1.6.0"
 
 [libraries]
 androidx-core-ktx = { group = "androidx.core", name = "core-ktx", version.ref = "coreKtx" }
@@ -30,6 +31,7 @@ retrofit-converter = { group = "com.squareup.retrofit2", name = "converter-gson"
 glide = { group = "com.github.bumptech.glide", name = "glide", version.ref = "glide" }
 retrofit-interceptor = { group = "com.squareup.okhttp3", name = "logging-interceptor", version.ref = "retrofitInterceptor" }
 lifecycle-viewmodel = { group = "androidx.lifecycle", name = "lifecycle-viewmodel-ktx", version.ref = "lifecycle" }
+fragment-ktx = { group = "androidx.fragment", name = "fragment-ktx", version.ref = "fragment-ktx" }
 
 [plugins]
 android-application = { id = "com.android.application", version.ref = "agp" }

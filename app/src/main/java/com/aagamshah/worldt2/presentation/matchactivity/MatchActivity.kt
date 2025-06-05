@@ -8,12 +8,14 @@ import androidx.core.view.WindowInsetsCompat
 import androidx.lifecycle.ViewModelProvider
 import com.aagamshah.worldt2.R
 import com.aagamshah.worldt2.databinding.ActivityMatchBinding
+import com.aagamshah.worldt2.presentation.bottomsheet.LogsBottomsheet
 import com.aagamshah.worldt2.utils.Status
 
 class MatchActivity : AppCompatActivity() {
 
     private lateinit var binding: ActivityMatchBinding
     private lateinit var viewModel: MatchViewModel
+    private lateinit var bottomsheet: LogsBottomsheet
 
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
@@ -68,15 +70,15 @@ class MatchActivity : AppCompatActivity() {
             }
         }
 
-        viewModel.outcome.observe(this) { outcome ->
-            binding.tvOutcome.text = outcome
-        }
-
         viewModel.winner.observe(this) { winner ->
             binding.tvOutcome.text = winner
             if (winner.isNotBlank()) {
                 binding.mbPlay.text = getString(R.string.match_over)
             }
+        }
+
+        viewModel.outcome.observe(this) { outcome ->
+            binding.tvOutcome.text = outcome
         }
 
     }
@@ -105,6 +107,12 @@ class MatchActivity : AppCompatActivity() {
             }
 
             viewModel.playNextBall()
+        }
+
+        bottomsheet = LogsBottomsheet()
+
+        binding.fabLogs.setOnClickListener {
+            bottomsheet.show(supportFragmentManager, "Logs")
         }
 
     }

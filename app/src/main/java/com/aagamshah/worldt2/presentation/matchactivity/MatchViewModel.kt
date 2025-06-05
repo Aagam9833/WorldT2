@@ -17,6 +17,7 @@ class MatchViewModel(
     private var currentScore = 0
     private var currentWickets = 0
     private var targetScore = 0
+    private var isFreeHit = false
 
     private val _winner = MutableLiveData<String>()
     val winner: LiveData<String> = _winner
@@ -33,12 +34,24 @@ class MatchViewModel(
     private val _outcome = MutableLiveData<String>()
     val outcome: LiveData<String> = _outcome
 
+    private val _logs = MutableLiveData<List<String>>()
+    val logs: LiveData<List<String>> = _logs
+
     init {
+        _logs.value = emptyList<String>()
         _winner.value = ""
-        _outcome.value = "Match Started"
+        _outcome.value = "Match Start"
         _teamOneStats.value = TeamStatsModel(Status.BATTING, 0, 0.0f, 0)
         _teamTwoStats.value = TeamStatsModel(Status.BOWLING, 0, 0.0f, 0)
         _isFirstInnings.value = true
+        addLog("$teamOneName Vs $teamTwoName")
+        addLog("Match Start")
+        addLog("$teamOneName Batting")
+    }
+
+    fun addLog(event: String) {
+        val updatedLogs = _logs.value.orEmpty().toMutableList().apply { add(event) }
+        _logs.value = updatedLogs
     }
 
     fun playNextBall() {
@@ -49,6 +62,8 @@ class MatchViewModel(
 
         val overs = calculateOvers(currentBall)
         _outcome.value = outcome.displayText
+
+        addLog("Ball: $currentBall, Score: $currentScore, Wickets: $currentWickets, Outcome: ${outcome.displayText}")
 
         if (_isFirstInnings.value == true) {
             _teamOneStats.value = _teamOneStats.value?.copy(
@@ -71,10 +86,18 @@ class MatchViewModel(
 
             if (currentScore >= targetScore) {
                 _winner.value = "$teamTwoName Wins"
+                addLog("$teamTwoName Wins")
             } else if (isInningsOver()) {
-                _winner.value = "$teamOneName Wins"
+                if (currentScore == targetScore - 1) {
+                    _winner.value = "Match Drawn"
+                    addLog("$teamTwoName Wins")
+                } else {
+                    _winner.value = "$teamOneName Wins"
+                    addLog("$teamTwoName Wins")
+                }
             }
         }
+
     }
 
     private fun updateScore(outcome: Outcome) {
@@ -85,7 +108,24 @@ class MatchViewModel(
             Outcome.THREE -> currentScore += 3
             Outcome.FOUR -> currentScore += 4
             Outcome.SIX -> currentScore += 6
-            Outcome.OUT -> currentWickets++
+            Outcome.OUT -> {
+                if (isFreeHit) {
+                    isFreeHit = false
+                } else {
+                    currentWickets++
+                }
+            }
+
+            Outcome.WIDE -> {
+                currentScore += 1
+                currentBall--
+            }
+
+            Outcome.NO_BALL -> {
+                isFreeHit = true
+                currentScore += 1
+                currentBall--
+            }
         }
         currentBall++
     }
@@ -110,11 +150,19 @@ class MatchViewModel(
         _teamTwoStats.value = _teamTwoStats.value?.copy(
             status = Status.BATTING,
         )
+        addLog("$teamTwoName Batting")
     }
 
     private fun simulateBall(): Outcome {
-        val outcomes = Outcome.entries.toTypedArray()
-        return outcomes.random()
+        val list = mutableListOf<Outcome>()
+
+        for (outcome in Outcome.entries) {
+            repeat(outcome.probability) {
+                list.add(outcome)
+            }
+        }
+
+        return list.random()
     }
 
 }

@@ -53,5 +53,6 @@ dependencies {
     implementation(libs.glide)
     implementation(libs.retrofit.interceptor)
     implementation(libs.lifecycle.viewmodel)
+    implementation(libs.fragment.ktx)
 
 }
