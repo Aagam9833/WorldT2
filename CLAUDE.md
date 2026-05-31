@@ -80,8 +80,9 @@ Track progress here. Mark tasks `[x]` when the developer has written and had the
 Reference files are in `testing/`. Open the relevant one for the full concept explanation, worked example, and task details.
 
 ### Module 1 — Pure Functions → `testing/module-1-pure-functions.md`
-- [ ] **Task 1a** — Test `toDomainModel()` → `app/src/test/.../domain/model/TeamsModelMappingTest.kt`
-- [ ] **Task 1b** — Test `Outcome` enum → `app/src/test/.../utils/OutcomeTest.kt`
+- [x] **Task 1a** — Test `toDomainModel()` → `app/src/test/.../domain/model/TeamsModelMappingTest.kt`
+- [x] **Task 1b** — Test `Outcome` enum → `app/src/test/.../utils/OutcomeTest.kt`
+- [x] **Task 1c** — Test `Resource<T>` sealed class → `app/src/test/.../utils/ResourceTest.kt`
 
 ### Module 2 — MatchViewModel (LiveData) → `testing/module-2-match-viewmodel.md`
 - [ ] **Task 2a** — Test all 6 initial LiveData fields → `app/src/test/.../presentation/matchactivity/MatchViewModelTest.kt`

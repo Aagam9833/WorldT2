@@ -150,6 +150,73 @@ Write tests for these cases:
 
 ---
 
+## Task 1c — Test `Resource<T>` sealed class
+
+**File to look at:** `app/src/main/java/com/aagamshah/worldt2/utils/Resource.kt`
+
+```kotlin
+sealed class Resource<T>(
+    val data: T? = null,
+    val message: String? = null
+) {
+    class Success<T>(data: T) : Resource<T>(data = data)
+    class Error<T>(message: String) : Resource<T>(message = message)
+}
+```
+
+`Resource` is used everywhere — ViewModels branch on it, repository returns it. Its contract must hold: `Success` carries data, `Error` carries a message, and neither leaks into the other.
+
+**Create:** `app/src/test/java/com/aagamshah/worldt2/utils/ResourceTest.kt`
+
+Write tests for these four cases:
+
+| # | Scenario | What to assert |
+|---|----------|----------------|
+| 1 | `Resource.Success("hello")` | `.data` equals `"hello"` |
+| 2 | `Resource.Success("hello")` | `.message` is null |
+| 3 | `Resource.Error("oops")` | `.message` equals `"oops"` |
+| 4 | `Resource.Error("oops")` | `.data` is null |
+
+For null checks use `assertNull(value)` — add `import org.junit.Assert.assertNull`.
+
+**How to run:**
+```bash
+./gradlew test --tests "com.aagamshah.worldt2.utils.ResourceTest"
+```
+
+---
+
+## What we deliberately did NOT test
+
+`MatchConstants` was considered and rejected. Here's why — this is as important as knowing what to test.
+
+```kotlin
+object MatchConstants {
+    const val MAX_OVERS = 2
+    const val BALLS_PER_OVER = 6
+    const val TOTAL_BALLS = MAX_OVERS * BALLS_PER_OVER  // derived
+    const val MAX_WICKETS = 3
+}
+```
+
+**Attempt 1 — test the relationship:**
+```kotlin
+assertEquals(MatchConstants.MAX_OVERS * MatchConstants.BALLS_PER_OVER, MatchConstants.TOTAL_BALLS)
+```
+Tautology. `TOTAL_BALLS` IS defined as that formula, so both sides are always identical. The test can never fail.
+
+**Attempt 2 — test a bound:**
+```kotlin
+assertTrue(MatchConstants.MAX_WICKETS > 0)
+```
+The IDE warns "always true" — `3 > 0` is resolved at compile time. Same problem.
+
+**The rule this teaches:** A test that cannot fail is worse than no test. It wastes CI time and gives false confidence. If your assertion could never be false given the current code, delete the test.
+
+The broader principle: **plain constants don't need tests.** Their value is visible in the code. If the value is wrong, that's a logic/design problem — not something a test catches.
+
+---
+
 ## What "passing" looks like
 
 When you run the tests and see:
@@ -160,7 +227,7 @@ X tests completed, 0 failed
 ```
 
 Paste your test file in the chat. The review will check:
-- Do you cover all 4 cases for 1a and all 3 for 1b?
+- Do you cover all cases for each task?
 - Is each test asserting exactly one thing?
 - Are the test names readable?
 - Are there any edge cases you missed?
