@@ -85,9 +85,9 @@ Reference files are in `testing/`. Open the relevant one for the full concept ex
 - [x] **Task 1c** — Test `Resource<T>` sealed class → `app/src/test/.../utils/ResourceTest.kt`
 
 ### Module 2 — MatchViewModel (LiveData) → `testing/module-2-match-viewmodel.md`
-- [ ] **Task 2a** — Test all 6 initial LiveData fields → `app/src/test/.../presentation/matchactivity/MatchViewModelTest.kt`
-- [ ] **Task 2b** — Test `addLog()` appends correctly
-- [ ] **Task 2c** — Test `playNextBall()` guard fires when match is over
+- [x] **Task 2a** — Test all 6 initial LiveData fields → `app/src/test/.../presentation/matchactivity/MatchViewModelTest.kt`
+- [x] **Task 2b** — Test `addLog()` appends correctly
+- [x] **Task 2c** — Test `playNextBall()` guard fires when match is over
 
 ### Module 3 — MainViewModel (MockK) → `testing/module-3-main-viewmodel.md`
 - [ ] **Task 3a** — Test API error path via mock → `app/src/test/.../presentation/mainactivity/MainViewModelTest.kt`
