@@ -90,9 +90,9 @@ Reference files are in `testing/`. Open the relevant one for the full concept ex
 - [x] **Task 2c** — Test `playNextBall()` guard fires when match is over
 
 ### Module 3 — MainViewModel (MockK) → `testing/module-3-main-viewmodel.md`
-- [ ] **Task 3a** — Test API error path via mock → `app/src/test/.../presentation/mainactivity/MainViewModelTest.kt`
-- [ ] **Task 3b** — Test `toggleTeamSelection` adds/removes + updates LiveData
-- [ ] **Task 3c** — Test max-2 cap: selecting a 3rd team does nothing
+- [x] **Task 3a** — Test API error path via mock → `app/src/test/.../presentation/mainactivity/MainViewModelTest.kt`
+- [x] **Task 3b** — Test `toggleTeamSelection` adds/removes + updates LiveData
+- [x] **Task 3c** — Test max-2 cap: selecting a 3rd team does nothing
 
 ### Module 4 — TeamsRepositoryImpl (network mocking) → `testing/module-4-repository.md`
 - [ ] **Task 4a** — Success path: data is correctly mapped → `app/src/test/.../data/repositoryimpl/TeamsRepositoryImplTest.kt`

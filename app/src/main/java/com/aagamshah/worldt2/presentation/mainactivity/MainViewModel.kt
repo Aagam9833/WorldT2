@@ -7,10 +7,14 @@ import androidx.lifecycle.viewModelScope
 import com.aagamshah.worldt2.domain.model.TeamsModel
 import com.aagamshah.worldt2.domain.repository.TeamsRepository
 import com.aagamshah.worldt2.utils.Resource
+import kotlinx.coroutines.CoroutineDispatcher
 import kotlinx.coroutines.Dispatchers
 import kotlinx.coroutines.launch
 
-class MainViewModel(private val teamsRepository: TeamsRepository) : ViewModel() {
+class MainViewModel(
+    private val teamsRepository: TeamsRepository,
+    private val ioDispatcher: CoroutineDispatcher = Dispatchers.IO
+) : ViewModel() {
 
     private val _teams = MutableLiveData<Resource<List<TeamsModel>>>()
     val teams: LiveData<Resource<List<TeamsModel>>> = _teams
@@ -23,7 +27,7 @@ class MainViewModel(private val teamsRepository: TeamsRepository) : ViewModel() 
     }
 
     private fun callTeamsApi() {
-        viewModelScope.launch(Dispatchers.IO) {
+        viewModelScope.launch(ioDispatcher) {
             val result = teamsRepository.getTeams()
             when (result) {
                 is Resource.Error<*> -> {
