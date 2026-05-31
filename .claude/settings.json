@@ -1,0 +1,24 @@
+{
+  "permissions": {
+    "allow": [
+      "Read(**)",
+      "Write(app/src/test/**)",
+      "Write(app/src/androidTest/**)",
+      "Write(app/build.gradle)",
+      "Write(app/build.gradle.kts)",
+      "Bash(./gradlew test)",
+      "Bash(./gradlew testDebugUnitTest)",
+      "Bash(./gradlew testReleaseUnitTest)",
+      "Bash(./gradlew connectedAndroidTest)",
+      "Bash(find . -name '*.kt' -not -path '*/build/*')",
+      "Bash(find . -name '*.java' -not -path '*/build/*')",
+      "Bash(cat **)"
+    ],
+    "deny": [
+      "Write(app/src/main/**)",
+      "Write(build.gradle)",
+      "Write(settings.gradle)",
+      "Write(gradle/**)"
+    ]
+  }
+}
