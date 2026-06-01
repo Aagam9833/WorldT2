@@ -95,6 +95,6 @@ Reference files are in `testing/`. Open the relevant one for the full concept ex
 - [x] **Task 3c** — Test max-2 cap: selecting a 3rd team does nothing
 
 ### Module 4 — TeamsRepositoryImpl (network mocking) → `testing/module-4-repository.md`
-- [ ] **Task 4a** — Success path: data is correctly mapped → `app/src/test/.../data/repositoryimpl/TeamsRepositoryImplTest.kt`
-- [ ] **Task 4b** — HTTP error response → `Resource.Error`
-- [ ] **Task 4c** — Network exception → `Resource.Error` with correct message + null fallback
+- [x] **Task 4a** — Success path: data is correctly mapped → `app/src/test/.../data/repositoryimpl/TeamsRepositoryImplTest.kt`
+- [x] **Task 4b** — HTTP error response → `Resource.Error`
+- [x] **Task 4c** — Network exception → `Resource.Error` with correct message + null fallback
